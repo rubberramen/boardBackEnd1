@@ -33,6 +33,7 @@ public class BoardDao {
     }
 
     // insert
+    // TODO: 2023-08-23 BoardDto 반환하게. 
     public void insertOne(BoardDto dto) {
         String sql = "insert into board3 (TITLE, CONTENTS, AUTHOR, CREATED_AT) values(?,?,?, now())";
         Connection conn = null;
