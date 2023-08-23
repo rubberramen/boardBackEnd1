@@ -9,6 +9,29 @@ import java.util.List;
 
 public class BoardDao {
 
+    // update
+    public void update(BoardDto updatedDto) {
+//        Integer idx = (Integer) dto.getIdx();
+//        BoardDto orginalDto = selectOne(updatedDto.getIdx());
+        String sql = "update board3 set title = ?, contents = ? where idx = ?";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = JdbcUtils.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, updatedDto.getTitle());
+            pstmt.setString(2, updatedDto.getContents());
+            pstmt.setLong(3, updatedDto.getIdx());
+            int i = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("boardUpdate 에러 : " + e);
+        } finally {
+            JdbcUtils.close(conn, pstmt);
+        }
+    }
+
     // insert
     public void insertOne(BoardDto dto) {
         String sql = "insert into board3 (TITLE, CONTENTS, AUTHOR, CREATED_AT) values(?,?,?, now())";
@@ -25,6 +48,8 @@ public class BoardDao {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("boardInsert 에러 : " + e);
+        } finally {
+            JdbcUtils.close(conn, pstmt);
         }
     }
 
@@ -46,7 +71,7 @@ public class BoardDao {
     }
 
     // idx로 찾기
-    public BoardDto selectOne(int idx) {
+    public BoardDto selectOne(Long idx) {
         BoardDto boardDto = new BoardDto();
         String sql = "select * from board3 where idx = ?";
 
@@ -57,7 +82,8 @@ public class BoardDao {
         try {
             conn = JdbcUtils.getConnection();
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, idx);
+//            pstmt.setInt(1, idx);
+            pstmt.setLong(1, idx);
             rs = pstmt.executeQuery();
             if (rs.next()) {
                 boardDto.setIdx(rs.getLong("idx"));
@@ -102,6 +128,8 @@ public class BoardDao {
         } catch (SQLException e) {
             System.out.println("getDetail 에러 : " + e);
             throw new RuntimeException(e);
+        } finally {
+            JdbcUtils.close(conn, pstmt);
         }
 
         return list;

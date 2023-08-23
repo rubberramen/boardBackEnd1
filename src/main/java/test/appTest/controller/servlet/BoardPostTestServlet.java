@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = "/board")
 public class BoardPostTestServlet extends HttpServlet {
@@ -31,6 +32,20 @@ public class BoardPostTestServlet extends HttpServlet {
         BoardDto boardDto = objectMapper.readValue(body, BoardDto.class);
 
         boardDao.insertOne(boardDto);
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
+        String body = getBody(request);
+//        String body = request.getReader().lines().collect(Collectors.joining());
+        BoardDto updatedDto = objectMapper.readValue(body, BoardDto.class);
+
+        boardDao.update(updatedDto);
     }
 
     public static String getBody(HttpServletRequest request) throws IOException {

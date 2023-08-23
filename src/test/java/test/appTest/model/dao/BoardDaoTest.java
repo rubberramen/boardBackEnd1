@@ -9,11 +9,11 @@ class BoardDaoTest {
 
     BoardDao boardDao = new BoardDao();
 
-    @Test
-    void test01() {
-        BoardDto boardDto = boardDao.selectOne(1);
-        System.out.println("boardDto = " + boardDto);
-    }
+//    @Test
+//    void test01() {
+//        BoardDto boardDto = boardDao.selectOne(1);
+//        System.out.println("boardDto = " + boardDto);
+//    }
 
     @Test
     void test02() {
@@ -28,6 +28,17 @@ class BoardDaoTest {
         dto.setAuthor("코코");
 
         boardDao.insertOne(dto);
+    }
+
+    @Test
+    void update() {
+        BoardDto updatedDto = new BoardDto();
+        updatedDto.setIdx(3L);
+        updatedDto.setTitle("게시글 제목3 수정");
+        updatedDto.setContents("게시글 내용3 수정");
+
+        boardDao.update(updatedDto);
+
     }
 
 }
