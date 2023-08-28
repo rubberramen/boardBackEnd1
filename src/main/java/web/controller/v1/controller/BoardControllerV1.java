@@ -1,9 +1,9 @@
-package web.frontController.v1.controller;
+package web.controller.v1.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.dao.BoardDaoV1;
 import model.dto.BoardDto;
-import web.frontController.v1.ControllerV1;
+import web.controller.v1.ControllerV1;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

@@ -1,7 +1,7 @@
-package web.frontController.v1;
+package web.controller.v1;
 
-import web.frontController.v1.controller.BoardControllerV1;
-import web.frontController.v1.controller.BoardListControllerV1;
+import web.controller.v1.controller.BoardControllerV1;
+import web.controller.v1.controller.BoardListControllerV1;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

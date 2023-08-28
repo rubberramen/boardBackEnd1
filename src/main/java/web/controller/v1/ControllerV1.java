@@ -1,4 +1,4 @@
-package web.frontController.v1;
+package web.controller.v1;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
