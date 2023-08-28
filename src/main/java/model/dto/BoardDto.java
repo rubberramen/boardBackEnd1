@@ -1,4 +1,4 @@
-package test.appTest.model.dto;
+package model.dto;
 
 public class BoardDto {
 

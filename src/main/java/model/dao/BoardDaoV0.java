@@ -1,13 +1,38 @@
-package test.appTest.model.dao;
+package model.dao;
 
-import test.appTest.model.db.JdbcUtils;
-import test.appTest.model.dto.BoardDto;
+import model.db.JdbcUtils;
+import model.dto.BoardDto;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoardDao {
+public class BoardDaoV0 {
+
+    public Long getMaxIdx() {
+        String sql = "select * from board3 where idx = (select max(idx) from board3)";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        Long idx = 0L;
+
+        try {
+            conn = JdbcUtils.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                idx = rs.getLong("idx");
+            }
+        } catch (SQLException e) {
+            System.out.println("getMaxIdx 에러 : " + e);
+            throw new RuntimeException(e);
+        } finally {
+            JdbcUtils.close(conn, pstmt, rs);
+        }
+
+        return idx;
+    }
 
     // update
     public void update(BoardDto updatedDto) {

@@ -1,8 +1,8 @@
 package test.appTest.controller.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import test.appTest.model.dao.BoardDao;
-import test.appTest.model.dto.BoardDto;
+import model.dao.BoardDaoV0;
+import model.dto.BoardDto;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +15,7 @@ import java.util.List;
 @WebServlet(urlPatterns = "/board/list")
 public class BoardListServlet extends HttpServlet {
 
-    BoardDao boardDao = new BoardDao();
+    BoardDaoV0 boardDaoV0 = new BoardDaoV0();
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
@@ -24,7 +24,7 @@ public class BoardListServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         response.setHeader("Access-Control-Allow-Origin", "*");
 
-        List<BoardDto> list = boardDao.selectAll();
+        List<BoardDto> list = boardDaoV0.selectAll();
         String result = objectMapper.writeValueAsString(list);
         response.getWriter().write(result);
     }

@@ -1,8 +1,8 @@
 package test.appTest.controller.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import test.appTest.model.dao.BoardDao;
-import test.appTest.model.dto.BoardDto;
+import model.dao.BoardDaoV0;
+import model.dto.BoardDto;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +14,7 @@ import java.io.IOException;
 @WebServlet(name = "servletTest01", urlPatterns = "/oneData")
 public class ServletTest01 extends HttpServlet {
 
-    BoardDao boardDao = new BoardDao();
+    BoardDaoV0 boardDaoV0 = new BoardDaoV0();
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
@@ -22,7 +22,7 @@ public class ServletTest01 extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
 
-        BoardDto boardDto = boardDao.selectOneArticle();
+        BoardDto boardDto = boardDaoV0.selectOneArticle();
         String result = objectMapper.writeValueAsString(boardDto);
         response.getWriter().write(result);
     }

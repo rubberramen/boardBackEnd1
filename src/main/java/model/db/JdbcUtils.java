@@ -1,4 +1,4 @@
-package test.appTest.model.db;
+package model.db;
 
 import java.sql.*;
 

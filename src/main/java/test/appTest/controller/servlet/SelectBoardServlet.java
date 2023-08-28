@@ -1,8 +1,8 @@
 package test.appTest.controller.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import test.appTest.model.dao.BoardDao;
-import test.appTest.model.dto.BoardDto;
+import model.dao.BoardDaoV0;
+import model.dto.BoardDto;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +14,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/board/*")
 public class SelectBoardServlet extends HttpServlet {
 
-    BoardDao boardDao = new BoardDao();
+    BoardDaoV0 boardDaoV0 = new BoardDaoV0();
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
@@ -30,7 +30,7 @@ public class SelectBoardServlet extends HttpServlet {
             String variableValue = pathInfo.substring(1);
 
             long idx = Long.parseLong(variableValue);
-            BoardDto boardDto = boardDao.selectOne(idx);
+            BoardDto boardDto = boardDaoV0.selectOne(idx);
 
             String result = objectMapper.writeValueAsString(boardDto);
             response.getWriter().write(result);
@@ -53,7 +53,7 @@ public class SelectBoardServlet extends HttpServlet {
             String variableValue = pathInfo.substring(1);
 
             int idx = Integer.parseInt(variableValue);
-            boardDao.deleteOne(idx);
+            boardDaoV0.deleteOne(idx);
 
         } else {
             response.getWriter().write("No variable value provided.");

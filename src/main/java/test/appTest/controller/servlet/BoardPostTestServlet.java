@@ -1,8 +1,8 @@
 package test.appTest.controller.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import test.appTest.model.dao.BoardDao;
-import test.appTest.model.dto.BoardDto;
+import model.dao.BoardDaoV0;
+import model.dto.BoardDto;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,12 +13,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = "/board")
 public class BoardPostTestServlet extends HttpServlet {
 
-    BoardDao boardDao = new BoardDao();
+    BoardDaoV0 boardDaoV0 = new BoardDaoV0();
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
@@ -31,7 +30,12 @@ public class BoardPostTestServlet extends HttpServlet {
         String body = getBody(request);
         BoardDto boardDto = objectMapper.readValue(body, BoardDto.class);
 
-        boardDao.insertOne(boardDto);
+        boardDaoV0.insertOne(boardDto);
+        Long maxIdx = boardDaoV0.getMaxIdx();
+        BoardDto boardDto1 = boardDaoV0.selectOne(maxIdx);
+
+        String result = objectMapper.writeValueAsString(boardDto1);
+        response.getWriter().write(result);
     }
 
     @Override
@@ -45,7 +49,7 @@ public class BoardPostTestServlet extends HttpServlet {
 //        String body = request.getReader().lines().collect(Collectors.joining());
         BoardDto updatedDto = objectMapper.readValue(body, BoardDto.class);
 
-        boardDao.update(updatedDto);
+        boardDaoV0.update(updatedDto);
     }
 
     public static String getBody(HttpServletRequest request) throws IOException {

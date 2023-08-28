@@ -1,7 +1,7 @@
 package test.appTest.controller.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import test.appTest.model.dao.BoardDao;
+import model.dao.BoardDaoV0;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +13,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/boardDelete/*")
 public class DeleteBoardServlet extends HttpServlet {
 
-    BoardDao boardDao = new BoardDao();
+    BoardDaoV0 boardDaoV0 = new BoardDaoV0();
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
@@ -29,7 +29,7 @@ public class DeleteBoardServlet extends HttpServlet {
             String variableValue = pathInfo.substring(1);
 
             int idx = Integer.parseInt(variableValue);
-            boardDao.deleteOne(idx);
+            boardDaoV0.deleteOne(idx);
 
         } else {
             response.getWriter().write("No variable value provided.");
