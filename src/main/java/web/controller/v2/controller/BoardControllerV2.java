@@ -2,7 +2,7 @@ package web.controller.v2.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.dto.BoardDto;
-import web.controller.v2.ControllerUtils;
+import web.controller.ControllerUtils;
 import web.controller.v2.ControllerV2;
 import web.service.v2.BoardServiceV2;
 

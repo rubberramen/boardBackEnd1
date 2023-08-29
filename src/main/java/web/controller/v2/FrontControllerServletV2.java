@@ -1,8 +1,6 @@
 package web.controller.v2;
 
-import web.controller.v1.ControllerV1;
-import web.controller.v1.controller.BoardControllerV1;
-import web.controller.v1.controller.BoardListControllerV1;
+import web.controller.ControllerUtils;
 import web.controller.v2.controller.BoardControllerV2;
 import web.controller.v2.controller.BoardListControllerV2;
 

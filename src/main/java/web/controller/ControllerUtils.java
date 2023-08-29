@@ -1,4 +1,7 @@
-package web.controller.v2;
+package web.controller;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,6 +11,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class ControllerUtils {
+
+    private static ObjectMapper objectMapper = new ObjectMapper();
+
+    public static <T> T getBodytoObject(String body, Class<T> clazz) throws JsonProcessingException {
+        T t = null;
+        if (!body.equals("")) {
+            t = objectMapper.readValue(body, clazz);
+        }
+        return t;
+    }
 
     public static void setResponse(HttpServletResponse response) {
         response.setContentType("application/json");
